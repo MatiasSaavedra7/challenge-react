@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Job Board Challenge - React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es la solucion al challenge tecnico para construir un listado de trabajos y permitir la postulacion de candidatos.
 
-Currently, two official plugins are available:
+## Descripcion
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+La aplicacion es una Single Page Application (SPA) construida con **React**, **TypeScript** y **Vite**. Permite a un usuario (candidato):
+1.  Ingresar su email para identificarse y obtener sus credenciales (`uuid`, `candidateId`, `applicationId`).
+2.  Ver un listado de posiciones laborales disponibles (Jobs).
+3.  Postularse a una posicion enviando la URL de su repositorio de GitHub.
 
-## React Compiler
+## Requisitos Previos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js (v18 o superior recomendado)
+- npm (o yarn/pnpm)
 
-## Expanding the ESLint configuration
+## Instalacion y Ejecucion
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/MatiasSaavedra7/challenge-react.git
+    cd challenge-react
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3.  **Configurar Variables de Entorno:**
+    Crea un archivo `.env` en la raiz del proyecto y define la URL base de la API.
+    
+    ```env
+    VITE_BASE_URL=https://botfilter-h5ddh6dye8exb7ha.centralus-01.azurewebsites.net
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+4.  **Ejecutar (modo desarrollo):**
+    ```bash
+    npm run dev
+    ```
+
+## Funcionalidades Implementadas
+
+- **Autenticacion:** Login por email para obtener los datos del candidato necesarios para la postulacion.
+- **Listado de Trabajos:** Obtiene los datos desde la API.
+- **Postulacion:** Envia la URL del repositorio a la API.
+- **Manejo de Errores:** Feedback visual al usuario en caso de fallos en la red o respuestas de error de la API.
+
+## Estructura del Proyecto
+
+```
+src/
+├── api/            # Cliente HTTP y funciones de fetch
+├── components/     # Componentes reutilizables (JobItem, JobList)
+├── types/          # Definiciones de tipos
+├── App.tsx         # Componente principal y manejo de estado global (candidato)
+└── main.tsx        # Punto de entrada
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tecnologias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Vite
+- React
+- TypeScript
+- CSS Modules
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
